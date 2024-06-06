@@ -1,11 +1,12 @@
-import {  Inject, NotFoundException } from '@nestjs/common';
+import {  NotFoundException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { CreateDogDto } from './dogs.model';
 import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+
 @Injectable()
 export class DogsService {
-    constructor(@Inject('Dog') private readonly dogModel: Model<any>) {}
-
+  constructor(@InjectModel('Dog') private readonly dogModel: Model<any>) {}
     async addDog(dogData: CreateDogDto) {
       try {
         const newDog = new this.dogModel(dogData);
