@@ -1,28 +1,29 @@
 import * as mongoose from 'mongoose'
 import { Levels } from 'src/enums'
 import { Size  } from 'src/enums'
-import { IsNotEmpty,IsNumber,IsString,IsEnum,IsArray,IsBoolean, IsOptional } from 'class-validator'
+import { IsNumber,IsString,IsEnum,IsBoolean, IsOptional,IsUrl } from 'class-validator'
 export const CatSchema = new mongoose.Schema({
-    breed_name:{type:String,required:true,unique:true},
+    breed:{type:String,required:true,unique:true},
     origin:{type:String,required:true},
     description:{type:String,required:true},
+    imageUrl:{type:String,require:true},
     size:{type:String,enum:['Extra Small','Small','Medium','Large','Extra', 'Large'],default:'Medium'},
-    average_life_span:Number,
-    coat_colors:[String],
-    coat_color_hex:[String],
-    average_weight_kg:Number,
-    activity_level:{type:String,enum:['Low','Average','High']},
-    grooming_needs:{type:String,enum:['Low','Average','High']},
-    socialization_needs:{type:String,enum:['Low','Average','High']},
-    health_issues:{type:String,enum:['Low','Average','High']},
-    intelligence_level:{type:String,enum:['Low','Average','High']},
-    child_friendly:Boolean,
+    averageLifeSpan:Number,
+    coatColors:[String],
+    coatColorHex:[String],
+    averageWeightKg:Number,
+    activityLevel:{type:String,enum:['Low','Average','High']},
+    groomingNeeds:{type:String,enum:['Low','Average','High']},
+    socializationNeeds:{type:String,enum:['Low','Average','High']},
+    healthIssues:{type:String,enum:['Low','Average','High']},
+    intelligenceLevel:{type:String,enum:['Low','Average','High']},
+    childFriendly:Boolean,
     history:String,
 })
 
 export class CreateCatDto {
     @IsString({message:'Please enter a valid breed name'})
-    breed_name: string;
+    breed: string;
 
     @IsString({message:'Please enter a valid origin'})
     origin: string;
@@ -31,46 +32,49 @@ export class CreateCatDto {
     description: string;
     
     @IsOptional()
-    @IsEnum(Size)    
+    @IsEnum(Size)
     size: Size;
 
-    @IsOptional()
-    @IsNumber()
-    average_life_span: number;
-
-    @IsOptional()
-    coat_colors: string[];
-
-    @IsOptional()
-    coat_color_hex: string[];
+    @IsUrl()
+    imageUrl:string;
 
     @IsOptional()
     @IsNumber()
-    average_weight_kg: number;
+    averageLifeSpan: number;
+
+    @IsOptional()
+    coatColors: string[];
+
+    @IsOptional()
+    coatColorHex: string[];
+
+    @IsOptional()
+    @IsNumber()
+    averageWeightKg: number;
 
     @IsOptional()
     @IsEnum(Levels)
-    activity_level: Levels;
+    activityLevel: Levels;
 
     @IsOptional()
     @IsEnum(Levels)
-    grooming_needs: Levels;
+    groomingNeeds: Levels;
 
     @IsOptional()
     @IsEnum(Levels)
-    socialization_needs: Levels;
+    socializationNeeds: Levels;
 
     @IsOptional()
     @IsEnum(Levels)
-    health_issues: Levels;
+    healthIssues: Levels;
 
     @IsOptional()
     @IsEnum(Levels)
-    intelligence_level: Levels;
+    intelligenceLevel: Levels;
 
     @IsOptional()
     @IsBoolean()
-    child_friendly: boolean;
+    childFriendly: boolean;
 
     @IsOptional()
     @IsString()
