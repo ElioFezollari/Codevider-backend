@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CatsService } from './cats.service';
 
 import { CreateCatDto } from './cats.model';
@@ -12,6 +12,10 @@ export class CatsController {
         return await this.catsService.getAllCats();
     }
 
+    @Get(':id')
+    async getOneCat(@Param('id') catId:string){
+        return await this.catsService.getOneCat(catId)
+    }
     @Post()
     @UsePipes(new ValidationPipe())
     async addCat(@Body() catData: CreateCatDto) {
