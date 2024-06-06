@@ -7,7 +7,7 @@ import { Levels, Size } from 'src/enums';
 export class CatsService {
   constructor(@InjectModel('Cat') private readonly catModel: Model<any>) {}
 
-  async insertCat(catData: CreateCatDto) {
+  async addCat(catData: CreateCatDto) {
     try {
       const newCat = new this.catModel(catData);
       const result = await newCat.save();
@@ -27,6 +27,17 @@ export class CatsService {
     const cats = await this.catModel.find().exec();
     return cats.map((cat)=>this.mapCat(cat))
   }
+
+  async deleteCat(id : string){
+    const cat = await this.catModel.deleteOne({_id:id}).exec()
+    if(cat.deletedCount === 0){
+        throw new NotFoundException('Cat does not exist')
+    }
+    else{
+        return {message: "Cat deleted successfully"}
+    }
+  }
+
 
 
   // Utility

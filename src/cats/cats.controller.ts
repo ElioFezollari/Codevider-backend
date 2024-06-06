@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CatsService } from './cats.service';
 
 import { CreateCatDto } from './cats.model';
@@ -13,12 +13,17 @@ export class CatsController {
     }
 
     @Get(':breed')
-    async getcatByBreed(@Param('breed') breedName:string){
+    async getCatByBreed(@Param('breed') breedName:string){
         return await this.catsService.getCatByBreed(breedName)
     }
     @Post()
     @UsePipes(new ValidationPipe())
     async addCat(@Body() catData: CreateCatDto) {
-        return await this.catsService.insertCat(catData);
+        return await this.catsService.addCat(catData);
+    }
+    
+    @Delete(':id')
+    async deleteCat(@Param('id') catId:string){
+        return await this.catsService.deleteCat(catId);
     }
 }
