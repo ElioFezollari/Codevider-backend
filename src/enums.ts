@@ -5,11 +5,24 @@ enum Size {
     Large = 'Large',
     ExtraLarge = 'Extra Large'
 }
-
+enum Difficulty{
+    Easy = "Easy",
+    Medium = "Medium",
+    Hard = "Hard"
+}
 enum Levels{
     Low = 'Low',
     Average = 'Average',
     High = 'High'
 }
-
-export {Size,Levels}
+enum Temperament {
+    Friendly = 'Friendly',
+    Energetic = 'Energetic',
+    Playful = 'Playful',
+    Protective = 'Protective',
+    Obedient = 'Obedient',
+    Independent = 'Independent',
+    Affectionate = 'Affectionate',
+    Stubborn = 'Stubborn'
+}
+export {Size,Levels,Temperament,Difficulty}
