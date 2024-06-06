@@ -11,67 +11,62 @@ export class CatsService {
     try {
       const newCat = new this.catModel(catData);
       const result = await newCat.save();
-      return result.breed as string;
+      return {breed: result.breed};
     } catch (error) {
       return { error: error.message };
     }
   }
   async getCatByBreed(breed: string) {
-    const cat = await this.catModel.findOne({ breed:breed }).exec();
-    if(!cat){
-        throw new NotFoundException('Could not find cat')
-    }
-    return this.mapCat(cat)
-  }
-  async getAllCats() {
-    const cats = await this.catModel.find().exec();
-    return cats.map((cat)=>this.mapCat(cat))
-  }
-
-  async deleteCat(id : string){
-    const cat = await this.catModel.deleteOne({_id:id}).exec()
-    if(cat.deletedCount === 0){
-        throw new NotFoundException('Cat does not exist')
-    }
-    else{
-        return {message: "Cat deleted successfully"}
-    }
-  }
-
-
-
-  // Utility
-  private async findCat(id: string): Promise<CreateCatDto> {
-    let cat: CreateCatDto;
-    try {
-      cat = await this.catModel.findById(id);
-    } catch (error) {
-      throw new NotFoundException("Could not find cat");
-    }
+    const cat = await this.catModel.findOne({ breed: breed }).exec();
     if (!cat) {
       throw new NotFoundException('Could not find cat');
     }
-    return cat;
+    return this.mapCat(cat);
   }
-  private mapCat(cat) {
+  async getAllCats() {
+    const cats = await this.catModel.find().exec();
+    return cats.map((cat) => this.mapCat(cat));
+  }
+
+  async deleteCat(id: string) {
+    const cat = await this.catModel.deleteOne({ _id: id }).exec();
+    if (cat.deletedCount === 0) {
+      throw new NotFoundException('Cat does not exist');
+    } else {
+      return { message: 'Cat deleted successfully' };
+    }
+  }
+
+  async updateCat(id: string, data: CreateCatDto) {
+    const cat = await this.catModel.findOneAndUpdate({ _id: id }, data, {
+      new: true,
+    });
+    if (!cat) {
+      throw new NotFoundException('Could not find cat');
+    }
+    return {breed: cat.breed}
+  }
+
+  // Utility
+  private mapCat(cat ) {
     return {
-        id: cat.id,
-        breed: cat.breed,
-        origin: cat.origin,
-        description: cat.description,
-        imageUrl: cat.imageUrl,
-        size: cat.size,
-        averageLifeSpan: cat.averageLifeSpan,
-        coatColors: cat.coatColors,
-        coatColorHex: cat.coatColorHex,
-        averageWeightKg: cat.averageWeightKg,
-        activityLevel: cat.activityLevel,
-        groomingNeeds: cat.groomingNeeds,
-        socializationNeeds: cat.socializationNeeds,
-        healthIssues: cat.healthIssues,
-        intelligenceLevel: cat.intelligenceLevel,
-        childFriendly: cat.childFriendly,
-        history: cat.history,
+      id: cat.id,
+      breed: cat.breed,
+      origin: cat.origin,
+      description: cat.description,
+      imageUrl: cat.imageUrl,
+      size: cat.size,
+      averageLifeSpan: cat.averageLifeSpan,
+      coatColors: cat.coatColors,
+      coatColorHex: cat.coatColorHex,
+      averageWeightKg: cat.averageWeightKg,
+      activityLevel: cat.activityLevel,
+      groomingNeeds: cat.groomingNeeds,
+      socializationNeeds: cat.socializationNeeds,
+      healthIssues: cat.healthIssues,
+      intelligenceLevel: cat.intelligenceLevel,
+      childFriendly: cat.childFriendly,
+      history: cat.history,
     };
-}
+  }
 }

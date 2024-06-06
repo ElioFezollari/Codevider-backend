@@ -43,9 +43,11 @@ export class CreateCatDto {
     averageLifeSpan: number;
 
     @IsOptional()
+    @IsString()
     coatColors: string[];
 
     @IsOptional()
+    @IsString()
     coatColorHex: string[];
 
     @IsOptional()
