@@ -16,8 +16,11 @@ export class CatsService {
       return { error: error.message };
     }
   }
-  async getOneCat(id: string) {
-    const cat = await this.findCat(id);
+  async getCatByBreed(breed: string) {
+    const cat = await this.catModel.findOne({ breed:breed }).exec();
+    if(!cat){
+        throw new NotFoundException('Could not find cat')
+    }
     return this.mapCat(cat)
   }
   async getAllCats() {
@@ -26,16 +29,16 @@ export class CatsService {
   }
 
 
-  // Utility Functions
+  // Utility
   private async findCat(id: string): Promise<CreateCatDto> {
     let cat: CreateCatDto;
     try {
       cat = await this.catModel.findById(id);
     } catch (error) {
-      throw new NotFoundException("Product Id doesn't exist");
+      throw new NotFoundException("Could not find cat");
     }
     if (!cat) {
-      throw new NotFoundException('Could not find product');
+      throw new NotFoundException('Could not find cat');
     }
     return cat;
   }

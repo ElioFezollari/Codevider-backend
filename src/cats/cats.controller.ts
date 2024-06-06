@@ -12,9 +12,9 @@ export class CatsController {
         return await this.catsService.getAllCats();
     }
 
-    @Get(':id')
-    async getOneCat(@Param('id') catId:string){
-        return await this.catsService.getOneCat(catId)
+    @Get(':breed')
+    async getcatByBreed(@Param('breed') breedName:string){
+        return await this.catsService.getCatByBreed(breedName)
     }
     @Post()
     @UsePipes(new ValidationPipe())
