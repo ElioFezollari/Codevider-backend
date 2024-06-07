@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose'
 import { Temperament } from 'src/enums'
 import { IsNumber,IsString, IsOptional,IsUrl, IsEnum, } from 'class-validator'
 export const BirdSchema = new mongoose.Schema({
-    species:{type:String,required:true},
+    species:{type:String,required:true,unique:true},
     commonName:{type:String,required:true},
     family:{type:String,required:true},
     order:{type:String,required:true},
@@ -16,7 +16,7 @@ export const BirdSchema = new mongoose.Schema({
     diet:String,
     migration:String,
     locations:[String],
-    temperament:Temperament,
+    temperament:{type:String,enum:Temperament},
     predators:String,
     history:String,
 })

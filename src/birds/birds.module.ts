@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { BirdSchema } from './birds.model';
 
 @Module({
-  imports:[MongooseModule.forFeature([{name:'Bird',schema:BirdSchema}])]
+  imports:[MongooseModule.forFeature([{name:'Bird',schema:BirdSchema}])],
   controllers: [BirdsController],
   providers: [BirdsService]
 })

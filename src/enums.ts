@@ -15,7 +15,7 @@ enum Levels{
     Average = 'Average',
     High = 'High'
 }
-enum Temperament {
+enum Temperament{
     Friendly = 'Friendly',
     Energetic = 'Energetic',
     Playful = 'Playful',
@@ -25,4 +25,4 @@ enum Temperament {
     Affectionate = 'Affectionate',
     Stubborn = 'Stubborn'
 }
-export {Size,Levels,Temperament,Difficulty}
+export {Size,Levels,Difficulty,Temperament}
