@@ -9,13 +9,13 @@ export const BirdSchema = new mongoose.Schema({
     genus:{type:String,required:true},
     description:{type:String,required:true},
     imageUrl:{type:String,required:true},
+    locations:{type:[String],required:true},
     colors:[String],
     colorHex:[String],
     wingspanInCm:String,
     habitat:String,
     diet:String,
     migration:String,
-    locations:[String],
     temperament:{type:String,enum:Temperament},
     predators:String,
     history:String,
@@ -67,7 +67,6 @@ export class CreateBirdDto {
     @IsString()
     migration:string
     
-    @IsOptional()
     @IsString()
     locations:string[]
 
