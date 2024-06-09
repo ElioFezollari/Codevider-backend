@@ -48,7 +48,7 @@ export class CreateBirdDto {
     colors: string[];
 
     @IsOptional()
-    @IsArray({message:"colorHex must be a string"})
+    @IsArray({message:"ColorHex must be a string"})
     colorHex: string[];
 
     @IsOptional()
