@@ -11,7 +11,7 @@ export class DogsService {
       try {
         const newDog = new this.dogModel(dogData);
         const result = await newDog.save();
-        return {breed: result.breed};
+        return {message: "Dog added successfully!"}
       } catch (error) {
         return { error: error.message };
       }
@@ -44,7 +44,7 @@ export class DogsService {
       if (!dog) {
         throw new NotFoundException('Could not find dog');
       }
-      return {breed: dog.breed}
+      return {message: "Dog edited successfully!"}
     }
   
     // Utility

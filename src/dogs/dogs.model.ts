@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose'
 import { Difficulty, Levels, Temperament } from 'src/enums'
 import { Size  } from 'src/enums'
-import { IsNumber,IsString,IsEnum,IsBoolean, IsOptional,IsUrl, } from 'class-validator'
+import { IsNumber,IsString,IsEnum,IsBoolean, IsOptional,IsUrl, IsArray, } from 'class-validator'
 export const DogSchema = new mongoose.Schema({
     breed:{type:String,required:true,unique:true},
     origin:{type:String,required:true},
@@ -21,7 +21,7 @@ export const DogSchema = new mongoose.Schema({
     history:String,
     preyDrive:{type:String,enum:Levels},
     trainability:{type:String,enum:Difficulty},
-    temperament:{type:String,enum:Temperament},
+    temperament:{type:String,enum:Temperament,required:true},
 })
 
 export class CreateDogDto {
@@ -46,11 +46,11 @@ export class CreateDogDto {
     averageLifeSpan: number;
 
     @IsOptional()
-    @IsString()
+    @IsArray({message:"Colors must be a string"})
     coatColors: string[];
 
     @IsOptional()
-    @IsString()
+    @IsArray({message:"ColorHex must be a string"})
     coatColorHex: string[];
 
     @IsOptional()
@@ -93,7 +93,6 @@ export class CreateDogDto {
     @IsEnum(Difficulty)
     trainability:Difficulty;
     
-    @IsOptional()
     @IsEnum(Temperament)
     temperament:Temperament
     

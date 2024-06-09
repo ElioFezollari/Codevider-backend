@@ -12,7 +12,7 @@ export class CatsService {
       const result = await newCat.save();
       return {breed: result.breed};
     } catch (error) {
-      return { error: error.message };
+      return {message: "Cat added successfully!"}
     }
   }
   async getCatByBreed(breed: string) {
@@ -43,7 +43,7 @@ export class CatsService {
     if (!cat) {
       throw new NotFoundException('Could not find cat');
     }
-    return {breed: cat.breed}
+    return {message: "Cat edited successfully!"}
   }
 
   // Utility

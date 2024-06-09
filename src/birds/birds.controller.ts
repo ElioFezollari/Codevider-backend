@@ -7,12 +7,12 @@ export class BirdsController {
     constructor(private readonly birdsService:BirdsService){}
 
     @Get()
-    async getAllCats(){
+    async getAllBirds(){
         return await this.birdsService.getAllBirds();
     }
 
     @Get(':species')
-    async getCatBySpecies(@Param('species') speciesName:string){
+    async getBirdBySpecies(@Param('species') speciesName:string){
         return await this.birdsService.getBirdBySpecies(speciesName)
     }
     @Post()

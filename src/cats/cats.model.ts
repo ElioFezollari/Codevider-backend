@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose'
 import { Levels } from 'src/enums'
 import { Size  } from 'src/enums'
-import { IsNumber,IsString,IsEnum,IsBoolean, IsOptional,IsUrl } from 'class-validator'
+import { IsNumber,IsString,IsEnum,IsBoolean, IsOptional,IsUrl, IsArray } from 'class-validator'
 export const CatSchema = new mongoose.Schema({
     breed:{type:String,required:true,unique:true},
     origin:{type:String,required:true},
@@ -43,11 +43,11 @@ export class CreateCatDto {
     averageLifeSpan: number;
 
     @IsOptional()
-    @IsString()
+    @IsArray({message:"Colors must be a string"})
     coatColors: string[];
 
     @IsOptional()
-    @IsString()
+    @IsArray({message:"ColorHex must be a string"})
     coatColorHex: string[];
 
     @IsOptional()

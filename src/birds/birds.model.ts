@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose'
 import { Temperament } from 'src/enums'
-import { IsNumber,IsString, IsOptional,IsUrl, IsEnum, } from 'class-validator'
+import { IsNumber,IsString, IsOptional,IsUrl, IsEnum, IsArray, } from 'class-validator'
 export const BirdSchema = new mongoose.Schema({
     species:{type:String,required:true,unique:true},
     commonName:{type:String,required:true},
@@ -12,7 +12,7 @@ export const BirdSchema = new mongoose.Schema({
     locations:{type:[String],required:true},
     colors:[String],
     colorHex:[String],
-    wingspanInCm:String,
+    wingspanInCm:Number,
     habitat:String,
     diet:String,
     migration:String,
@@ -44,11 +44,11 @@ export class CreateBirdDto {
     imageUrl:string;
 
     @IsOptional()
-    @IsString()
+    @IsArray({message:"Colors must be a string"})
     colors: string[];
 
     @IsOptional()
-    @IsString()
+    @IsArray({message:"colorHex must be a string"})
     colorHex: string[];
 
     @IsOptional()
@@ -66,8 +66,8 @@ export class CreateBirdDto {
     @IsOptional()
     @IsString()
     migration:string
-    
-    @IsString()
+
+    @IsArray({message:"Locations must be a string"})
     locations:string[]
 
     @IsOptional()

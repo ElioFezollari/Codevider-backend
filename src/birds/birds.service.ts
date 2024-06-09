@@ -13,7 +13,7 @@ export class BirdsService {
       const result = await newBird.save();
       return { species: result.species };
     } catch (error) {
-      return { error: error.message };
+      return {message: "Bird added successfully!"}
     }
   }
   async getBirdBySpecies(species: string) {
@@ -46,7 +46,7 @@ export class BirdsService {
     if (!bird) {
       throw new NotFoundException('Could not find bird');
     }
-    return { species: bird.species };
+    return {message: "Bird edited successfully!"}
   }
 
   // Utility
